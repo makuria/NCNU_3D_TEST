@@ -1,6 +1,175 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sketchfab Viewer - Military Radio</title>
 
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", "Noto Sans TC", sans-serif;
+    }
 
-<div class="sketchfab-embed-wrapper">
-This is a sketchfab embedded script example<hr>
-<iframe style="width:60%;" title="Military Radio" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/f5c8f0420f054b32a2e977fbcd248d84/embed"> </iframe>
-</div>
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top left, rgba(59, 130, 246, 0.18), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(14, 165, 233, 0.14), transparent 30%),
+        linear-gradient(135deg, #0f172a, #111827, #1e293b);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 30px 20px;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 1100px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 26px;
+      backdrop-filter: blur(14px);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+      overflow: hidden;
+    }
+
+    .header {
+      padding: 34px 28px 18px;
+      text-align: center;
+    }
+
+    .header h1 {
+      font-size: 2.2rem;
+      color: #93c5fd;
+      margin-bottom: 10px;
+      letter-spacing: 1px;
+    }
+
+    .header p {
+      color: #cbd5e1;
+      line-height: 1.8;
+      font-size: 1rem;
+    }
+
+    .divider {
+      width: 90px;
+      height: 4px;
+      margin: 18px auto 0;
+      border-radius: 999px;
+      background: linear-gradient(to right, #60a5fa, #38bdf8);
+    }
+
+    .content {
+      padding: 24px 28px 30px;
+    }
+
+    .info-card {
+      margin-bottom: 22px;
+      padding: 18px 20px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #dbeafe;
+      line-height: 1.8;
+    }
+
+    .viewer-box {
+      width: 100%;
+      height: 68vh;
+      min-height: 420px;
+      border-radius: 22px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.04);
+      box-shadow:
+        0 18px 40px rgba(0, 0, 0, 0.28),
+        inset 0 0 20px rgba(255, 255, 255, 0.03);
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 0 28px 28px;
+      color: #94a3b8;
+      font-size: 0.92rem;
+    }
+
+    @media (max-width: 768px) {
+      .header h1 {
+        font-size: 1.75rem;
+      }
+
+      .viewer-box {
+        height: 50vh;
+        min-height: 340px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .header h1 {
+        font-size: 1.5rem;
+      }
+
+      .header p,
+      .info-card {
+        font-size: 0.94rem;
+      }
+
+      .content,
+      .header,
+      .footer {
+        padding-left: 18px;
+        padding-right: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="header">
+      <h1>Sketchfab 3D Showcase</h1>
+      <p>
+        Military Radio 3D 模型展示頁面<br>
+        可直接在下方互動旋轉、縮放與檢視模型細節
+      </p>
+      <div class="divider"></div>
+    </div>
+
+    <div class="content">
+      <div class="info-card">
+        This is a Sketchfab embedded script example.  
+        下方為嵌入式 3D 模型展示區，適合用於作品展示、模型預覽與互動操作。
+      </div>
+
+      <div class="viewer-box">
+        <iframe
+          title="Military Radio"
+          allowfullscreen
+          mozallowfullscreen="true"
+          webkitallowfullscreen="true"
+          allow="autoplay; fullscreen; xr-spatial-tracking"
+          xr-spatial-tracking
+          execution-while-out-of-viewport
+          execution-while-not-rendered
+          web-share
+          src="https://sketchfab.com/models/f5c8f0420f054b32a2e977fbcd248d84/embed">
+        </iframe>
+      </div>
+    </div>
+
+    <div class="footer">
+      © 2026 Sketchfab Interactive Model Viewer
+    </div>
+  </div>
+</body>
+</html>
