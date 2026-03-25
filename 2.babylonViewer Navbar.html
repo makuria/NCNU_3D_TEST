@@ -1,43 +1,279 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>BabylonJS Viewer - Basic usage</title>
-        <style>
-			.viewerContainer {
-                width: 400px;
-                height: 500px;				
-				image-rendering: pixelated; /* to prevent blury when zoomed out */
-			}
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>BabylonJS Viewer - Navbar Demo</title>
 
-        </style>
-		<script src="https://cdn.babylonjs.com/viewer/babylon.viewer.js"></script>
-	<script>
-		function loadit(modelUrl) {
-			if(modelUrl) {
-				let viewer = BabylonViewer.viewerManager.getViewerById('viewerID');
-				let temp = viewer.templateManager.getTemplate('navBar');
-				let param= temp._configuration;
-				param.params.hideVr=false;
-                param.params.disableOnFullscreen=true;
-				temp.updateParams(param);
-				viewer.loadModel(modelUrl)
-			}
-		}
-	</script>
+  <script src="https://cdn.babylonjs.com/viewer/babylon.viewer.js"></script>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", "Noto Sans TC", sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top left, rgba(59, 130, 246, 0.18), transparent 35%),
+        radial-gradient(circle at bottom right, rgba(14, 165, 233, 0.15), transparent 30%),
+        linear-gradient(135deg, #0f172a, #111827, #1e293b);
+      color: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 30px 20px;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 1180px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 26px;
+      backdrop-filter: blur(14px);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+      overflow: hidden;
+    }
+
+    .header {
+      padding: 34px 28px 20px;
+      text-align: center;
+    }
+
+    .header h1 {
+      font-size: 2.2rem;
+      color: #93c5fd;
+      margin-bottom: 10px;
+      letter-spacing: 1px;
+    }
+
+    .header p {
+      color: #cbd5e1;
+      line-height: 1.8;
+      font-size: 1rem;
+    }
+
+    .content {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 24px;
+      padding: 0 28px 28px;
+    }
+
+    .side-panel {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 22px;
+      padding: 24px;
+      box-shadow: inset 0 0 18px rgba(255, 255, 255, 0.03);
+      height: fit-content;
+    }
+
+    .side-panel h2 {
+      font-size: 1.2rem;
+      margin-bottom: 14px;
+      color: #bfdbfe;
+    }
+
+    .side-panel p {
+      color: #dbeafe;
+      line-height: 1.8;
+      font-size: 0.95rem;
+      margin-bottom: 18px;
+    }
+
+    .label {
+      display: inline-block;
+      margin-bottom: 10px;
+      color: #cbd5e1;
+      font-size: 0.92rem;
+    }
+
+    select {
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: rgba(255, 255, 255, 0.08);
+      color: white;
+      font-size: 1rem;
+      outline: none;
+      cursor: pointer;
+      transition: 0.3s ease;
+      margin-bottom: 18px;
+    }
+
+    select:hover,
+    select:focus {
+      border-color: rgba(147, 197, 253, 0.8);
+      box-shadow: 0 0 0 4px rgba(147, 197, 253, 0.12);
+    }
+
+    select option {
+      color: #111827;
+    }
+
+    .info-card {
+      padding: 16px;
+      border-radius: 16px;
+      background: rgba(59, 130, 246, 0.12);
+      border: 1px solid rgba(147, 197, 253, 0.18);
+    }
+
+    .info-card h3 {
+      font-size: 1rem;
+      margin-bottom: 10px;
+      color: #93c5fd;
+    }
+
+    .info-card ul {
+      padding-left: 18px;
+      color: #dbeafe;
+      line-height: 1.8;
+      font-size: 0.92rem;
+    }
+
+    .viewer-panel {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 24px;
+      padding: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow:
+        0 18px 40px rgba(0, 0, 0, 0.28),
+        inset 0 0 20px rgba(255, 255, 255, 0.03);
+    }
+
+    .viewerContainer {
+      width: 100%;
+      height: 620px;
+      border-radius: 18px;
+      overflow: hidden;
+      background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+      image-rendering: pixelated;
+    }
+
+    babylon {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 0 28px 26px;
+      color: #94a3b8;
+      font-size: 0.92rem;
+    }
+
+    @media (max-width: 960px) {
+      .content {
+        grid-template-columns: 1fr;
+      }
+
+      .viewerContainer {
+        height: 500px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .header h1 {
+        font-size: 1.7rem;
+      }
+
+      .header p {
+        font-size: 0.95rem;
+      }
+
+      .page {
+        border-radius: 20px;
+      }
+
+      .header,
+      .content,
+      .footer {
+        padding-left: 18px;
+        padding-right: 18px;
+      }
+
+      .viewerContainer {
+        height: 360px;
+      }
+    }
+  </style>
+
+  <script>
+    function loadit(modelUrl) {
+      if (modelUrl) {
+        let viewer = BabylonViewer.viewerManager.getViewerById("viewerID");
+        let temp = viewer.templateManager.getTemplate("navBar");
+        let param = temp._configuration;
+
+        param.params.hideVr = false;
+        param.params.disableOnFullscreen = true;
+
+        temp.updateParams(param);
+        viewer.loadModel(modelUrl);
+      }
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      loadit("./models/alice.glb");
+    });
+  </script>
 </head>
 <body>
-<select onchange="loadit(this.value)">
-	<option value="">select model</option>
-	<option value="./models/alice.glb">Alice</option>
-	<option value="./models/Astronaut.glb">Astronaut</option>
-	<option value="./models/buddha.glb">Buddha</option>
-</select>
-<div class='viewerContainer'>
-	<babylon id="viewerID"><vr></vr></babylon>
-</div>
-</body>
+  <div class="page">
+    <div class="header">
+      <h1>BabylonJS 3D Navbar Viewer</h1>
+      <p>
+        互動式 3D 模型展示頁面<br>
+        支援模型切換、檢視操作與 VR 功能展示
+      </p>
+    </div>
 
+    <div class="content">
+      <div class="side-panel">
+        <h2>模型控制面板</h2>
+        <p>
+          請選擇要載入的 3D 模型，進入展示區後可自由旋轉、縮放並觀察模型細節。
+        </p>
+
+        <label class="label" for="modelSelect">選擇模型</label>
+        <select id="modelSelect" onchange="loadit(this.value)">
+          <option value="">請選擇模型</option>
+          <option value="./models/alice.glb">Alice</option>
+          <option value="./models/Astronaut.glb">Astronaut</option>
+          <option value="./models/buddha.glb">Buddha</option>
+        </select>
+
+        <div class="info-card">
+          <h3>功能特色</h3>
+          <ul>
+            <li>支援 Babylon Viewer 導覽列</li>
+            <li>可切換不同 GLB 模型</li>
+            <li>啟用 VR 相關控制項</li>
+            <li>適合做 3D 作業展示頁</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="viewer-panel">
+        <div class="viewerContainer">
+          <babylon id="viewerID">
+            <vr></vr>
+          </babylon>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      © 2026 BabylonJS Interactive Model Showcase
+    </div>
+  </div>
+</body>
 </html>
