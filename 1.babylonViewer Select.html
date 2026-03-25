@@ -1,38 +1,201 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>BabylonJS Viewer - Basic usage</title>
-        <style>
-			.viewerContainer {
-                width: 400px;
-                height: 500px;				
-				image-rendering: pixelated; /* to prevent blury when zoomed out */
-			}
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>BabylonJS Viewer - Model Selector</title>
 
-        </style>
-		<script src="https://cdn.babylonjs.com/viewer/babylon.viewer.js"></script>
-	<script>
-		function loadit(modelUrl) {
-			if(modelUrl) {
-				let viewer = BabylonViewer.viewerManager.getViewerById('viewerID');
-				viewer.loadModel(modelUrl)
-			}
-		}
-	</script>
+  <script src="https://cdn.babylonjs.com/viewer/babylon.viewer.js"></script>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", "Noto Sans TC", sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #0f172a, #1e293b, #334155);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 30px 20px;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 1100px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 24px;
+      padding: 32px;
+      backdrop-filter: blur(14px);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .header h1 {
+      font-size: 2.2rem;
+      color: #93c5fd;
+      margin-bottom: 10px;
+      letter-spacing: 1px;
+    }
+
+    .header p {
+      color: #cbd5e1;
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+
+    .control-panel {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 28px;
+    }
+
+    .select-box {
+      width: 100%;
+      max-width: 340px;
+      position: relative;
+    }
+
+    select {
+      width: 100%;
+      padding: 14px 18px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: rgba(255, 255, 255, 0.08);
+      color: white;
+      font-size: 1rem;
+      outline: none;
+      cursor: pointer;
+      transition: 0.3s ease;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    select:hover,
+    select:focus {
+      border-color: rgba(147, 197, 253, 0.8);
+      box-shadow: 0 0 0 4px rgba(147, 197, 253, 0.12);
+    }
+
+    select option {
+      color: black;
+    }
+
+    .viewer-wrapper {
+      display: flex;
+      justify-content: center;
+    }
+
+    .viewerContainer {
+      width: 100%;
+      max-width: 700px;
+      height: 550px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 22px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow:
+        0 15px 35px rgba(0, 0, 0, 0.28),
+        inset 0 0 20px rgba(255, 255, 255, 0.03);
+      image-rendering: pixelated;
+    }
+
+    babylon {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 24px;
+      color: #94a3b8;
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 768px) {
+      .page {
+        padding: 24px 18px;
+      }
+
+      .header h1 {
+        font-size: 1.8rem;
+      }
+
+      .viewerContainer {
+        height: 420px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .viewerContainer {
+        height: 340px;
+      }
+
+      .header h1 {
+        font-size: 1.5rem;
+      }
+
+      .header p {
+        font-size: 0.92rem;
+      }
+    }
+  </style>
+
+  <script>
+    function loadit(modelUrl) {
+      if (modelUrl) {
+        let viewer = BabylonViewer.viewerManager.getViewerById("viewerID");
+        viewer.loadModel(modelUrl);
+      }
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      loadit("./models/alice.glb");
+    });
+  </script>
 </head>
 <body>
-<select onchange="loadit(this.value)">
-	<option value="">select model</option>
-	<option value="./models/alice.glb">Alice</option>
-	<option value="./models/Astronaut.glb">Astronaut</option>
-	<option value="./models/stacy_lightweight.glb">Stacy</option>
-</select>
-<div class='viewerContainer'>
-	<babylon id="viewerID"></babylon>
-</div>
-</body>
+  <div class="page">
+    <div class="header">
+      <h1>BabylonJS 3D Model Viewer</h1>
+      <p>
+        選擇不同 3D 模型進行展示與互動<br>
+        可旋轉、縮放並觀察模型細節
+      </p>
+    </div>
 
+    <div class="control-panel">
+      <div class="select-box">
+        <select onchange="loadit(this.value)">
+          <option value="">請選擇模型</option>
+          <option value="./models/alice.glb">Alice</option>
+          <option value="./models/Astronaut.glb">Astronaut</option>
+          <option value="./models/stacy_lightweight.glb">Stacy</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="viewer-wrapper">
+      <div class="viewerContainer">
+        <babylon id="viewerID"></babylon>
+      </div>
+    </div>
+
+    <div class="footer">
+      © 2026 3D Interactive Showcase
+    </div>
+  </div>
+</body>
 </html>
