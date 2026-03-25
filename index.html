@@ -1,20 +1,180 @@
-hello MyFriend
-<hr/>
-<a href="sketchfab.html">SketchFab Example</a> <br/>
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3D Web Showcase</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", "Noto Sans TC", sans-serif;
+    }
 
-<p>
-<a href="0.babylonViewer Basic.html">Babylon Viewer Basic</a>
-</p>
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #0f172a, #1e293b, #334155);
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 20px;
+    }
 
-<p>
-<a href="1.babylonViewer Select.html">Babylon Viewer Select</a>
-</p>
+    .container {
+      width: 100%;
+      max-width: 900px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 24px;
+      padding: 40px 30px;
+      backdrop-filter: blur(14px);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+    }
 
-<a href="2.babylonViewer Navbar.html">Babylon Viewer Navbar</a>
-<hr/>
-<!--
-<p>
-<a href="./webAR">WebAR 範例</a>
-</p>
--->
+    .title {
+      text-align: center;
+      margin-bottom: 12px;
+      font-size: 2.5rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
 
+    .subtitle {
+      text-align: center;
+      color: #cbd5e1;
+      margin-bottom: 35px;
+      font-size: 1rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      text-decoration: none;
+      color: white;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 18px;
+      padding: 24px 20px;
+      transition: all 0.3s ease;
+      display: block;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      top: -40%;
+      left: -20%;
+      width: 160%;
+      height: 160%;
+      background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255, 255, 255, 0.08),
+        transparent
+      );
+      transform: rotate(15deg);
+      transition: 0.6s;
+    }
+
+    .card:hover::before {
+      left: 100%;
+    }
+
+    .card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+      border-color: rgba(96, 165, 250, 0.6);
+    }
+
+    .card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+      color: #93c5fd;
+    }
+
+    .card p {
+      font-size: 0.95rem;
+      color: #e2e8f0;
+      line-height: 1.6;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 35px;
+      color: #94a3b8;
+      font-size: 0.9rem;
+    }
+
+    .coming-soon {
+      opacity: 0.45;
+      pointer-events: none;
+    }
+
+    .tag {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      background: rgba(96, 165, 250, 0.15);
+      color: #bfdbfe;
+    }
+
+    @media (max-width: 600px) {
+      .title {
+        font-size: 2rem;
+      }
+
+      .container {
+        padding: 28px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="title">3D Web Showcase</h1>
+    <p class="subtitle">歡迎來到我的 3D 網頁展示平台，這裡收錄 Babylon Viewer、Sketchfab 。</p>
+
+    <div class="grid">
+      <a href="sketchfab.html" class="card">
+        <h3>SketchFab Example</h3>
+        <p>展示 Sketchfab 模型嵌入效果，適合用於 3D 模型瀏覽與互動展示。</p>
+        <span class="tag">3D Model</span>
+      </a>
+
+      <a href="0.babylonViewer Basic.html" class="card">
+        <h3>Babylon Viewer Basic</h3>
+        <p>Babylon.js 的基本檢視器範例，適合作為 3D 網頁入門展示。</p>
+        <span class="tag">Basic</span>
+      </a>
+
+      <a href="1.babylonViewer Select.html" class="card">
+        <h3>Babylon Viewer Select</h3>
+        <p>加入模型選取功能，讓使用者能更直覺地與場景內容互動。</p>
+        <span class="tag">Interactive</span>
+      </a>
+
+      <a href="2.babylonViewer Navbar.html" class="card">
+        <h3>Babylon Viewer Navbar</h3>
+        <p>整合導覽列設計，讓 3D 展示頁面更完整、更像正式網站。</p>
+        <span class="tag">UI Layout</span>
+      </a>
+
+     
+    </div>
+
+    <div class="footer">
+      © 2026 My 3D Project Showcase
+    </div>
+  </div>
+</body>
+</html>
